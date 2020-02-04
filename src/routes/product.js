@@ -14,7 +14,7 @@ router.get('/products', ProductController.getProduct);
  * @description - Route is use to add a product
  * @returns - It returns a response
  */
-router.post('/products/add', ProductController.addProduct;
+router.post('/products/add', ProductController.addProduct);
 
 /**
  * @description - Route is use to delete a product
