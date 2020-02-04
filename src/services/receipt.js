@@ -28,3 +28,6 @@ class ReceiptService {
     }
   }
 } 
+
+
+export default new ReceiptService()
