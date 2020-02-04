@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
+require('dotenv').config();
 // move to env
-const server = '127.0.0.1:27017';
-const database = 'inventory';
+const server = process.env.server;
+const database = process.env.database;
 
 class Database {
   constructor() {

@@ -1,4 +1,6 @@
 import express from 'express';
+import Product from './models/product'
+import Receipt from './models/receipt'
 
 const app = express();
 

@@ -1,20 +1,10 @@
 const mongoose = require('mongoose')
+const validator = require('validator')
 
 const receiptSchema = new mongoose.Schema({
- amount: {
-      type: Number,
-      required: true,
-      validate: (value) => {
-          return validate.isNumeric(value.trim())
-      }
-  },
-  quantity: {
-    type: Number,
-    required: true,
-      validate: (value) => {
-          return validate.isNumeric(value.trim())
-      }
-  },
+  product_id: ObjectId,
+  amount: Number,
+  quantity: Number,
   date: Date
 })
 
