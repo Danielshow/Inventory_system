@@ -1,9 +1,9 @@
 {
-  "name": "LocateME_API",
+  "name": "inventory-system",
   "version": "1.0.0",
   "description": "A Security application",
   "main": "index.js",
-  "repository": "git@github.com:Danielshow/LocateME_API.git",
+  "repository": "git@github.com:Danielshow/Inventory_system.git",
   "author": "danielshow <danielshotonwa53@gmail.com>",
   "license": "MIT",
   "scripts": {
