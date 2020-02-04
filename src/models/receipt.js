@@ -5,8 +5,8 @@ const ObjectId = mongoose.Schema.ObjectId;
 
 const receiptSchema = new mongoose.Schema({
   product_id: ObjectId,
-  amount: Number,
-  quantity: Number,
+  amount: { Type: Number, default: 0 },
+  quantity: { Type: Number, default: 0 },
   date: Date
 })
 
