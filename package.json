@@ -17,7 +17,9 @@
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
     "@babel/preset-env": "^7.6.3",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.8.11",
+    "validator": "^12.2.0"
   },
   "devDependencies": {
     "jest": "^24.9.0",
