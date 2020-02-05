@@ -1,7 +1,4 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
-
-const ObjectId = mongoose.Schema.ObjectId;
 
 const receiptSchema = new mongoose.Schema({
   name: String,
