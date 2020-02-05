@@ -10,7 +10,6 @@ const schema = Joi.object().keys({
 
 const product_schema = Joi.object().keys({
   product: Joi.string()
-    .alphanum()
     .min(3)
     .max(30)
     .required()

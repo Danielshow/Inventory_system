@@ -3,7 +3,6 @@ import Joi from "joi";
 
 export const productSchema = Joi.object().keys({
   name: Joi.string()
-    .alphanum()
     .min(3)
     .max(30)
     .required(),

@@ -28,7 +28,7 @@ class ProductService {
   async addProduct(req, res, next) {
     const { name, amount } = req.body;
     const product = new this.db({
-      name: name.toLowerCase(),
+      name: name.toLowerCase().trim(),
       amount
     });
 
@@ -75,10 +75,15 @@ class ProductService {
     try {
       const { id } = req.params;
       const result = await this.findOne(req, res);
+      if (!result) {
+        res.status(404).json({
+          error: "product not found"
+        });
+      }
       const name = req.body.name || result.name;
       const amount = req.body.amount || result.amount;
 
-      const payload = { name, amount };
+      const payload = { name: name.trim(), amount };
       const joi_result = Joi.validate(payload, productSchema);
       if (joi_result.error) {
         return res.status(400).json({
