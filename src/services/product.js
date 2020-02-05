@@ -1,5 +1,7 @@
 import Product from '../models/product'
+import Joi from 'joi'
 
+import { productSchema } from '../controller/product'
 
 class ProductService {
   constructor(){
@@ -81,6 +83,14 @@ class ProductService {
       const quantity = req.body.quantity || result.quantity
 
       const payload = {name, amount, quantity}
+      const joi_result = Joi.validate(payload, productSchema)
+      if (joi_result.error){
+        return res.status(400).json({
+          message: 'some errors where found',
+          error: joi_result.error
+        })
+      }
+
       await this.db.updateOne({_id: id}, payload)
       return payload;
     } catch(err){

@@ -1,4 +1,11 @@
 import pservices from '../services/product'
+import Joi from 'joi'
+
+export const productSchema = Joi.object().keys({ 
+ name: Joi.string().alphanum().min(3).max(30).required(),
+ amount: Joi.number().integer().min(1).max(1000000).required(), 
+ quantity:  Joi.number().integer().min(1).max(100).required()
+}); 
 
 class ProductController {
   /**
@@ -18,6 +25,18 @@ class ProductController {
    * @desc add a product to the database
    */
   static async addProduct(req, res, next) { 
+    const values = {
+      name: req.body.name,
+      amount: req.body.amount,
+      quantity: req.body.quantity
+    }
+   const result = Joi.validate(values, productSchema)
+    if (result.error){
+      return res.status(400).json({
+        message: "some errors where found",
+        error: result.error
+      }) 
+    }
    const data = await pservices.addProduct(req, res, next)
     res.status(201).json({
         data: data,
