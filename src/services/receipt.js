@@ -1,41 +1,40 @@
-import Receipt from '../models/receipt'
-import Product from '../services/product'
-
+import Receipt from "../models/receipt";
+import Product from "../services/product";
 
 class ReceiptService {
-  constructor(){
+  constructor() {
     this.db = Receipt;
     this.product = Product;
   }
 
   /**
    *
-   * @desc- purchase a product by ID 
+   * @desc- purchase a product by ID
    *
    */
-  async getReceiptOnPurchase(req, res, next){
+  async getReceiptOnPurchase(req, res, next) {
     try {
-      const product = await this.product.findOne(req, res)
+      const product = await this.product.findOne(req, res);
       if (product) {
-        req.amount = Number(product.amount) * Number(req.body.quantity)
-        req.name = product.name
-        const result = await this.generateReceipt(req, res, next) 
+        req.amount = Number(product.amount) * Number(req.body.quantity);
+        req.name = product.name;
+        const result = await this.generateReceipt(req, res, next);
         return result;
       } else {
         return res.status(404).json({
           message: "Product is not available"
-        })
+        });
       }
-    } catch (err){
-      next(err)
+    } catch (err) {
+      next(err);
     }
   }
 
   /**
-   * 
+   *
    * @desc - generate receipt helper, add the items bought into the database
    */
-  async generateReceipt(req, res, next){
+  async generateReceipt(req, res, next) {
     const { id } = req.params;
     const { name, amount } = req;
     const { quantity } = req.body;
@@ -46,13 +45,13 @@ class ReceiptService {
       productId: id,
       date: Date.now(),
       month: this.getMonth()
-    })
+    });
 
     try {
-      const data = await receipt.save()
+      const data = await receipt.save();
       return data;
-    } catch (err){
-      next(err)
+    } catch (err) {
+      next(err);
     }
   }
 
@@ -62,16 +61,20 @@ class ReceiptService {
    */
   async getTotalByMonth(req, res, next) {
     try {
-    const result = await this.db.aggregate(
-      [
-        {$match: {month: req.query.month.toLowerCase()}},
-        {$group: {_id: "$name", quantity: {$sum: "$quantity"}, total: {$sum: "$amount"}}}
-      ]
-    )
+      const result = await this.db.aggregate([
+        { $match: { month: req.query.month.toLowerCase() } },
+        {
+          $group: {
+            _id: "$name",
+            quantity: { $sum: "$quantity" },
+            total: { $sum: "$amount" }
+          }
+        }
+      ]);
 
-    return result;
-    } catch (err){
-      next(err)
+      return result;
+    } catch (err) {
+      next(err);
     }
   }
 
@@ -79,18 +82,21 @@ class ReceiptService {
    *
    * @desc - get the monthly sale of a product
    */
-  async getMonthlySaleByProduct(req, res, next){
+  async getMonthlySaleByProduct(req, res, next) {
     try {
-    const result = await this.db.aggregate(
-      [
-        {$match: {name: req.query.product.toLowerCase()}},
-        {$group: {_id: "$month", quantity: {$sum: "$quantity"}, total: {$sum: "$amount"}}}
-
-      ]
-    )
-    return result; 
-    } catch (err){
-      next(err)
+      const result = await this.db.aggregate([
+        { $match: { name: req.query.product.toLowerCase() } },
+        {
+          $group: {
+            _id: "$month",
+            quantity: { $sum: "$quantity" },
+            total: { $sum: "$amount" }
+          }
+        }
+      ]);
+      return result;
+    } catch (err) {
+      next(err);
     }
   }
 
@@ -98,7 +104,7 @@ class ReceiptService {
    *
    * @desc - get month helper
    */
-  getMonth(){
+  getMonth() {
     const months = [
       "January",
       "February",
@@ -112,11 +118,9 @@ class ReceiptService {
       "October",
       "November",
       "December"
-
-  ];
-  return months[new Date().getMonth()].toLowerCase();
+    ];
+    return months[new Date().getMonth()].toLowerCase();
   }
-} 
+}
 
-
-export default new ReceiptService()
+export default new ReceiptService();

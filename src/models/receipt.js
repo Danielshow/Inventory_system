@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const validator = require('validator')
+const mongoose = require("mongoose");
+const validator = require("validator");
 
 const ObjectId = mongoose.Schema.ObjectId;
 
@@ -10,6 +10,6 @@ const receiptSchema = new mongoose.Schema({
   quantity: Number,
   date: Date,
   month: String
-})
+});
 
-module.exports = mongoose.model('Receipt', receiptSchema)
+module.exports = mongoose.model("Receipt", receiptSchema);
