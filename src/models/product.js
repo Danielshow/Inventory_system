@@ -4,7 +4,6 @@ const validator = require('validator')
 const productSchema = new mongoose.Schema({
   name: String,
   amount: Number,
-  quantity: Number,
   date: Date
 })
 
