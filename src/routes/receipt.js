@@ -15,9 +15,9 @@ router.post('/purchase/:id', ReceiptController.purchase);
  * and can query by month sales
  * @returns - It returns a response
  */
-router.get('/total/:month', ReceiptController.getTotalByMonth);
+router.get('/total', ReceiptController.getTotalByMonth);
 
-
+router.get('/month', ReceiptController.getTotalSaleByProduct);
 export default router;
 
 

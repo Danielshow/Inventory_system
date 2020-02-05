@@ -50,14 +50,34 @@ class ReceiptService {
   }
 
   async getTotalByMonth(req, res, next) {
+    try {
     const result = await this.db.aggregate(
       [
-        {$match: {month: req.params.month.toLowerCase()}},
+        {$match: {month: req.query.month.toLowerCase()}},
         {$group: {_id: "$name", quantity: {$sum: "$quantity"}, total: {$sum: "$amount"}}}
       ]
     )
-    console.log(result)
-    res.json({result})
+
+    return result;
+    } catch (err){
+      next(err)
+    }
+  }
+
+
+  async getMonthlySaleByProduct(req, res, next){
+    try {
+    const result = await this.db.aggregate(
+      [
+        {$match: {name: req.query.product.toLowerCase()}},
+        {$group: {_id: "$name", quantity: {$sum: "$quantity"}, total: {$sum: "$amount"}}}
+
+      ]
+    )
+    return result; 
+    } catch (err){
+      next(err)
+    }
   }
 
   getMonth(){

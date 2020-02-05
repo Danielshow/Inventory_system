@@ -12,7 +12,30 @@ class ReceiptController {
 
 
   static async getTotalByMonth(req, res, next) {
+    if (!req.query.month){
+      return res.status(400).json({
+        error: "month query params is not passed"
+      })
+    }
     const result = await rservices.getTotalByMonth(req, res, next);
+    res.status(200).json({
+      message: "total by month returned successfully",
+      result: result
+    })
+  }
+
+
+  static async getTotalSaleByProduct(req, res, next) {
+    if (!req.query.product){
+      return res.status(400).json({
+        error: "product query params is not passed"
+      })
+    }
+    const result = await rservices.getMonthlySaleByProduct(req, res, next)
+    res.status(200).json({
+      message: "monthly sale by product returned successfully",
+      result: result
+    })
   }
 }
 
