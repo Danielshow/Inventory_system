@@ -1,21 +1,36 @@
 import pservices from '../services/product'
 
 class ProductController {
-  static getProduct (req, res, next) {
-    pservices.getAllProducts(req, res, next)
+  static async getProduct (req, res, next) {
+   const products = await pservices.getAllProducts(req, res, next)
+    res.status(200).json({
+      data: products,
+      message: 'Products returned successfully'
+    })
   }
 
 
-  static addProduct(req, res, next) { 
-    pservices.addProduct(req, res, next)
+  static async addProduct(req, res, next) { 
+   const data = await pservices.addProduct(req, res, next)
+    res.status(201).json({
+        data: data,
+        message: 'Product added successfully'
+      })
   }
 
-  static deleteProduct(req, res, next) {
-    pservices.deleteProduct(req, res, next);
+  static async deleteProduct(req, res, next) {
+    await pservices.deleteProduct(req, res, next);
+    res.status(200).json({
+        message: 'Product deleted successfully'
+    })
   }
 
-  static updateProduct(req, res, next) {
-    pservices.updateProduct(req, res, next)
+  static async updateProduct(req, res, next) {
+   const payload = await pservices.updateProduct(req, res, next)
+   res.status(200).json({
+        message: "Product updated successfully",
+        data: payload
+    })
   }
 }
 

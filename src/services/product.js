@@ -7,15 +7,12 @@ class ProductService {
   }
 
 
-  async getAllProducts(req, res, next){
+  async getAllProducts(req,res, next){
     try {
       const products = await this.db.find()
-        res.status(200).json({
-          data: products,
-          message: 'Products returned successfully'
-       })
+      return products;
     } catch (err){
-       next(err)   
+       return next(err)   
     }
   }
 
@@ -30,10 +27,7 @@ class ProductService {
 
     try {
       const data = await product.save()
-      res.status(201).json({
-        data: data,
-        message: 'Product added successfully'
-      })
+      return data;
     } catch (err){
       next(err)
     }
@@ -42,12 +36,19 @@ class ProductService {
   async deleteProduct(req, res, next){
     try {
       const { id } = req.params;
-      await this.db.remove({ _id: id});
-      res.status(200).json({
-        message: 'Product deleted successfully'
-      })
+      return await this.db.remove({ _id: id});
     } catch(err) {
       next(err)
+    }
+  }
+
+  async findOne(req, res, next){
+    try {
+      const { id } = req.params;
+      const result = await this.db.findOne({_id: id})
+      return result;
+    } catch(err){
+      return next(err);
     }
   }
 
@@ -55,17 +56,14 @@ class ProductService {
   async updateProduct(req, res, next){
     try {
       const { id } = req.params;
-      const result = await this.db.findOne({_id: id})
+      const result = await this.findOne(req, res, next);
       const name = req.body.name || result.name
       const amount = req.body.amount || result.amount
       const quantity = req.body.quantity || result.quantity
 
       const payload = {name, amount, quantity}
-      const data = await this.db.updateOne({_id: id}, payload)
-      res.status(200).json({
-        message: "Product updated successfully",
-        data: payload
-      })
+      await this.db.updateOne({_id: id}, payload)
+      return payload;
     } catch(err){
       next(err)
     }
