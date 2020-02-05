@@ -44,9 +44,9 @@ No test for now
 | HTTP verb | Routes  | Description |
 |-----------| ------------- | ------------- |
 | GET | /api/v1/products | Get all products |
-| POST | /api/v1/products/add | add a product - params [name, amount, quantity]|
+| POST | /api/v1/products/add | add a product - params [name, amount]|
 | DELETE | /api/v1/products/:id | Delete a specific product by id |
-| PUT | /api/v1/products/:id | Update a particular product [name, amount, quantity] |
+| PUT | /api/v1/products/:id | Update a particular product [name, amount] |
 | GET | /api/v1/purchase/:id  | Purchase a product and get receipt [quantity]  |
 | GET | /api/v1/total  | Get total sale in a month [takes a query params month] |
 | GET | /api/v1/month  | get monthly sale by product [takes a query param product]|
