@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 require('dotenv').config();
-// move to env
+
 const server = process.env.server;
 const database = process.env.database;
 

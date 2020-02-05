@@ -7,6 +7,10 @@ class ProductService {
   }
 
 
+  /**
+   * @desc - get all products
+   *
+   */
   async getAllProducts(req,res, next){
     try {
       const products = await this.db.find()
@@ -16,7 +20,10 @@ class ProductService {
     }
   }
 
-
+  /**
+   * @desc - add a product
+   *
+   */
   async addProduct(req, res, next){
     const { name, amount, quantity } = req.body;
     const product = new this.db({
@@ -32,7 +39,11 @@ class ProductService {
       next(err)
     }
   }
-
+  
+  /**
+   *
+   * @desc - delete a product from the database
+   */
   async deleteProduct(req, res, next){
     try {
       const { id } = req.params;
@@ -42,6 +53,10 @@ class ProductService {
     }
   }
 
+  /**
+   * @desc - find one product in the database
+   *
+   */
   async findOne(req, res){
     try {
       const { id } = req.params;
@@ -53,6 +68,10 @@ class ProductService {
   }
 
 
+  /**
+   *
+   * @desc - update a product in the database
+   */
   async updateProduct(req, res, next){
     try {
       const { id } = req.params;

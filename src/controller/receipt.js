@@ -1,6 +1,10 @@
 import rservices from '../services/receipt'
 
 class ReceiptController {
+  /**
+   *
+   * @desc - get a product and compute the receipt
+   */
   static async purchase(req, res, next) {
     const result = await rservices.getReceiptOnPurchase(req, res, next);
     return res.status(200).json({
@@ -10,7 +14,11 @@ class ReceiptController {
 
   }
 
-
+  /**
+   *
+   * @desc - get total by month from the database
+   *
+   */
   static async getTotalByMonth(req, res, next) {
     if (!req.query.month){
       return res.status(400).json({
@@ -25,6 +33,10 @@ class ReceiptController {
   }
 
 
+  /**
+   * @desc - get total sale by different product
+   *
+   */
   static async getTotalSaleByProduct(req, res, next) {
     if (!req.query.product){
       return res.status(400).json({

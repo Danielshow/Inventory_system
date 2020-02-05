@@ -12,10 +12,16 @@ router.post('/purchase/:id', ReceiptController.purchase);
 
 /**
  * @description - Route is use to get the total in a month
- * and can query by month sales
+ * 
  * @returns - It returns a response
  */
 router.get('/total', ReceiptController.getTotalByMonth);
+
+/**
+ * @description - Route is use to get the total sale in a for a product
+ *
+ * @returns - It returns a response
+ */
 
 router.get('/month', ReceiptController.getTotalSaleByProduct);
 export default router;

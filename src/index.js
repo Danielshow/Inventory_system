@@ -18,13 +18,19 @@ app.get('/', (req, res) => {
   res.json({message: "it works"})
 })
 
+
+// external routes
 app.use('/api/v1', receiptRouter)
 app.use('/api/v1', productRouter)
-// handle all routes
+
+
+// handle all 404 routes
 app.get("*", function(req, res) {
   res.json({message: "Routes not available"});
 });
 
+
+// handle all errors and next calls
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({
     errors: {

@@ -8,9 +8,12 @@ class ReceiptService {
     this.product = Product;
   }
 
-
+  /**
+   *
+   * @desc- purchase a product by ID 
+   *
+   */
   async getReceiptOnPurchase(req, res, next){
-    // find product
     try {
       const product = await this.product.findOne(req, res)
       if (product) {
@@ -28,6 +31,10 @@ class ReceiptService {
     }
   }
 
+  /**
+   * 
+   * @desc - generate receipt helper, add the items bought into the database
+   */
   async generateReceipt(req, res, next){
     const { id } = req.params;
     const { name, amount } = req;
@@ -49,6 +56,10 @@ class ReceiptService {
     }
   }
 
+  /**
+   *
+   * @desc - get the total of goods sold by month
+   */
   async getTotalByMonth(req, res, next) {
     try {
     const result = await this.db.aggregate(
@@ -64,13 +75,16 @@ class ReceiptService {
     }
   }
 
-
+  /**
+   *
+   * @desc - get the monthly sale of a product
+   */
   async getMonthlySaleByProduct(req, res, next){
     try {
     const result = await this.db.aggregate(
       [
         {$match: {name: req.query.product.toLowerCase()}},
-        {$group: {_id: "$name", quantity: {$sum: "$quantity"}, total: {$sum: "$amount"}}}
+        {$group: {_id: "$month", quantity: {$sum: "$quantity"}, total: {$sum: "$amount"}}}
 
       ]
     )
@@ -80,6 +94,10 @@ class ReceiptService {
     }
   }
 
+  /**
+   *
+   * @desc - get month helper
+   */
   getMonth(){
     const months = [
       "January",
