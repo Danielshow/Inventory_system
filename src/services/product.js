@@ -42,13 +42,13 @@ class ProductService {
     }
   }
 
-  async findOne(req, res, next){
+  async findOne(req, res){
     try {
       const { id } = req.params;
       const result = await this.db.findOne({_id: id})
-      return result;
-    } catch(err){
-      return next(err);
+      return result; 
+    } catch (err){
+      return null
     }
   }
 
@@ -56,7 +56,7 @@ class ProductService {
   async updateProduct(req, res, next){
     try {
       const { id } = req.params;
-      const result = await this.findOne(req, res, next);
+      const result = await this.findOne(req, res);
       const name = req.body.name || result.name
       const amount = req.body.amount || result.amount
       const quantity = req.body.quantity || result.quantity

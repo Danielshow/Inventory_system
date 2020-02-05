@@ -4,7 +4,8 @@ const validator = require('validator')
 const ObjectId = mongoose.Schema.ObjectId;
 
 const receiptSchema = new mongoose.Schema({
-  product_id: ObjectId,
+  name: String,
+  product_id: String,
   amount: Number,
   quantity: Number,
   date: Date
