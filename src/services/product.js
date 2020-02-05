@@ -27,7 +27,7 @@ class ProductService {
   async addProduct(req, res, next){
     const { name, amount, quantity } = req.body;
     const product = new this.db({
-      name,
+      name: name.toLowerCase(),
       amount,
       quantity,
     })
