@@ -11,8 +11,8 @@ class ReceiptController {
   }
 
 
-  static getTotalByMonth(req, res) {
-
+  static async getTotalByMonth(req, res, next) {
+    const result = await rservices.getTotalByMonth(req, res, next);
   }
 }
 

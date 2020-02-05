@@ -32,13 +32,13 @@ class ReceiptService {
     const { id } = req.params;
     const { name, amount } = req;
     const { quantity } = req.body;
-    console.log(name, amount, quantity, id)
     const receipt = new this.db({
       name,
       amount,
       quantity,
       productId: id,
-      date: Date.now()
+      date: Date.now(),
+      month: this.getMonth()
     })
 
     try {
@@ -47,6 +47,36 @@ class ReceiptService {
     } catch (err){
       next(err)
     }
+  }
+
+  async getTotalByMonth(req, res, next) {
+    const result = await this.db.aggregate(
+      [
+        {$match: {month: req.params.month.toLowerCase()}},
+        {$group: {_id: "$name", quantity: {$sum: "$quantity"}, total: {$sum: "$amount"}}}
+      ]
+    )
+    console.log(result)
+    res.json({result})
+  }
+
+  getMonth(){
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "Septempber",
+      "October",
+      "November",
+      "December"
+
+  ];
+  return months[new Date().getMonth()].toLowerCase();
   }
 } 
 

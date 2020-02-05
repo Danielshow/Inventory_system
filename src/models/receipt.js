@@ -8,7 +8,8 @@ const receiptSchema = new mongoose.Schema({
   product_id: String,
   amount: Number,
   quantity: Number,
-  date: Date
+  date: Date,
+  month: String
 })
 
 module.exports = mongoose.model('Receipt', receiptSchema)
