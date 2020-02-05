@@ -39,20 +39,35 @@ class ProductService {
     }
   }
 
-  deleteProduct(data){
+  async deleteProduct(req, res, next){
     try {
-      this.db.deleteOne(data);
+      const { id } = req.params;
+      await this.db.remove({ _id: id});
+      res.status(200).json({
+        message: 'Product deleted successfully'
+      })
     } catch(err) {
-      throw(err)
+      next(err)
     }
   }
 
 
-  updateProduct(data){
+  async updateProduct(req, res, next){
     try {
-      this.db.updateOne(data)
+      const { id } = req.params;
+      const result = await this.db.findOne({_id: id})
+      const name = req.body.name || result.name
+      const amount = req.body.amount || result.amount
+      const quantity = req.body.quantity || result.quantity
+
+      const payload = {name, amount, quantity}
+      const data = await this.db.updateOne({_id: id}, payload)
+      res.status(200).json({
+        message: "Product updated successfully",
+        data: payload
+      })
     } catch(err){
-      throw(err)
+      next(err)
     }
   }
 

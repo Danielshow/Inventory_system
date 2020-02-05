@@ -10,12 +10,12 @@ class ProductController {
     pservices.addProduct(req, res, next)
   }
 
-  static deleteProduct(req, res) {
-
+  static deleteProduct(req, res, next) {
+    pservices.deleteProduct(req, res, next);
   }
 
-  static updateProduct(req, res) {
-
+  static updateProduct(req, res, next) {
+    pservices.updateProduct(req, res, next)
   }
 }
 
